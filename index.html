@@ -186,11 +186,17 @@
   .admin-doc-row { background: var(--navy-mid); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--navy-border); }
   .admin-doc-row.hidden-row { opacity: 0.5; }
   .admin-doc-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .admin-doc-key { font-family: var(--font-display); font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; }
+  .admin-doc-key { font-family: var(--font-display); font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; flex-shrink: 0; }
   .admin-doc-style { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-family: var(--font-display); font-weight: 600; letter-spacing: 0.5px; }
   .admin-doc-style.red, .admin-doc-style.red-full { background: var(--red-bright); color: #fff; }
   .admin-doc-style.green { background: #1a6a28; color: #fff; }
   .admin-doc-style.dark { background: var(--navy-border); color: var(--text-secondary); }
+  .admin-doc-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .admin-style-select { background: var(--navy); border: 1px solid var(--navy-border); color: var(--text-primary); font-size: 11px; padding: 6px 6px; border-radius: 6px; font-family: var(--font-body); max-width: 120px; }
+  .admin-doc-delete { background: none; border: 1px solid var(--red-bright); color: var(--red-bright); font-size: 11px; font-family: var(--font-body); padding: 6px 10px; border-radius: 6px; cursor: pointer; white-space: nowrap; }
+  .admin-doc-delete:active { background: var(--red-bright); color: #fff; }
+  .admin-add-btn { width: 100%; background: var(--navy-light); border: 1px dashed var(--navy-border); color: var(--text-secondary); font-family: var(--font-display); font-size: 14px; font-weight: 600; letter-spacing: 0.5px; padding: 14px; border-radius: 10px; cursor: pointer; margin-bottom: 14px; min-height: 48px; }
+  .admin-add-btn:active { background: var(--navy-border); color: var(--text-primary); }
   .admin-toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
   .admin-toggle input { opacity: 0; width: 0; height: 0; }
   .admin-toggle-slider { position: absolute; inset: 0; background: var(--navy-border); border-radius: 24px; cursor: pointer; transition: background 0.2s; }
@@ -220,14 +226,12 @@
 </head>
 <body>
 <div id="app">
-
   <div id="loading">
     <div class="load-logo">PalmCrest</div>
     <div class="load-sub">LiveTrack</div>
     <div class="load-bar"><div class="load-progress" id="loadBar"></div></div>
     <div class="load-status" id="loadStatus">Loading data...</div>
   </div>
-
   <!-- DASHBOARD -->
   <div id="screen-dashboard" class="screen">
     <div class="topbar"><span class="topbar-icon"></span><span class="topbar-brand" onclick="adminTap()">PalmCrest LiveTrack</span><span class="topbar-icon"></span></div>
@@ -254,7 +258,6 @@
       <button class="nav-btn" id="nav-areaprogress" onclick="showScreen('areaprogress'); setNav('areaprogress')"><span class="nav-icon">📊</span>Area</button>
     </div>
   </div>
-
   <!-- WORK ORDERS -->
   <div id="screen-workorders" class="screen">
     <div class="topbar"><button class="home-btn" onclick="showScreen('dashboard'); setNav('dashboard')">⊞ Home</button><span class="topbar-brand">Work Orders</span><span style="width:70px"></span></div>
@@ -290,7 +293,6 @@
       <button class="nav-btn" onclick="showScreen('areaprogress'); setNav('areaprogress')"><span class="nav-icon">📊</span>Area</button>
     </div>
   </div>
-
   <!-- TASK DETAIL -->
   <div id="screen-taskdetail" class="screen">
     <div class="topbar"><span class="topbar-back" onclick="showScreen('workorders')">◀ Work Orders</span><span style="flex:1"></span></div>
@@ -302,7 +304,6 @@
       <button class="nav-btn" onclick="showScreen('areaprogress'); setNav('areaprogress')"><span class="nav-icon">📊</span>Area</button>
     </div>
   </div>
-
   <!-- EDIT PROGRESS -->
   <div id="screen-editprogress" class="screen">
     <div class="topbar"><span class="topbar-back" onclick="showScreen('taskdetail')">◀ Back</span><span class="topbar-brand">Update Progress</span><span style="width:24px"></span></div>
@@ -321,7 +322,6 @@
       <button class="save-btn" id="saveBtn" onclick="saveProgress()">Save → Update Scheduler</button>
     </div>
   </div>
-
   <!-- DOCUMENTS — emergency buttons removed -->
   <div id="screen-documents" class="screen">
     <div class="topbar"><button class="home-btn" onclick="showScreen('dashboard'); setNav('dashboard')">⊞ Home</button><span class="topbar-brand">Documents</span><span style="width:70px"></span></div>
@@ -336,7 +336,6 @@
       <button class="nav-btn" onclick="showScreen('areaprogress'); setNav('areaprogress')"><span class="nav-icon">📊</span>Area</button>
     </div>
   </div>
-
   <!-- AREA PROGRESS -->
   <div id="screen-areaprogress" class="screen">
     <div class="topbar"><button class="home-btn" onclick="showScreen('dashboard'); setNav('dashboard')">⊞ Home</button><span class="topbar-brand">Area Progress</span><span style="width:70px"></span></div>
@@ -369,7 +368,6 @@
       <button class="nav-btn active"><span class="nav-icon">📊</span>Area</button>
     </div>
   </div>
-
   <!-- EMERGENCY PAGE -->
   <div id="screen-emergency" class="screen">
     <div class="topbar"><span class="topbar-back" onclick="showScreen('dashboard')">◀ Back</span><span class="topbar-brand">Emergency</span><span style="width:24px"></span></div>
@@ -388,7 +386,6 @@
       <button class="emerg-item-btn" id="emergBtn3" onclick="openEmergDoc(2)">Emergency Response Plan</button>
     </div>
   </div>
-
   <!-- DOCUMENTS ADMIN -->
   <div id="screen-admin" class="screen">
     <div class="topbar"><span class="topbar-back" onclick="showScreen('dashboard')">◀ Back</span><span class="topbar-brand">Admin</span><span style="width:60px"></span></div>
@@ -417,10 +414,10 @@
     <div id="adminContent" style="display:none; flex:1; overflow-y:auto; padding:16px;">
       <div class="admin-section-title">Document Buttons</div>
       <div id="adminDocList"></div>
+      <button class="admin-add-btn" id="adminAddDocBtn" onclick="adminAddDoc()">+ Add Document Button</button>
       <button class="admin-save-btn" id="adminSaveBtn" onclick="saveAdminConfig()">Save Changes</button>
     </div>
   </div>
-
   <!-- EMERGENCY ADMIN — triple-tap "Emergency Info" to access -->
   <div id="screen-emergadmin" class="screen">
     <div class="topbar"><span class="topbar-back" onclick="showScreen('emergency')">◀ Emergency</span><span class="topbar-brand">Emergency Admin</span><span style="width:60px"></span></div>
@@ -489,14 +486,11 @@
       <button class="admin-save-btn" id="emergAdminSaveBtn" onclick="saveEmergAdminConfig()">Save Changes</button>
     </div>
   </div>
-
   <div id="toast"></div>
 </div>
-
 <script>
 // ── YOUR APPS SCRIPT URL — do not change this ──
 const EXEC_URL = 'https://script.google.com/macros/s/AKfycbx_4_J_EwhBT3PYjc7qMCsCPrtPReR5IJFjWqWY0PdD8t9fWEKTdYWc68fDh3HW6j9R/exec';
-
 // ── DOCUMENT BUTTONS (no emergency buttons) ──
 var DOCS = [
   { key: 'doc1',  label: 'Document 1',  style: 'green', url: '#' },
@@ -510,7 +504,6 @@ var DOCS = [
   { key: 'doc9',  label: 'Document 9',  style: 'dark',  url: '#' },
   { key: 'doc10', label: 'Document 10', style: 'dark',  url: '#' },
 ];
-
 // ── EMERGENCY CONFIG defaults ──
 var EMERG_CONFIG = {
   callLabel: '⚠ EMERGENCY CALL ⚠',
@@ -521,7 +514,6 @@ var EMERG_CONFIG = {
     { label: 'Emergency Response Plan', url: '#', visible: true },
   ]
 };
-
 // ── RENDER DOCUMENT GRID ──
 function renderDocGrid() {
   var grid = document.getElementById('docGrid');
@@ -532,7 +524,6 @@ function renderDocGrid() {
   });
   grid.innerHTML = html;
 }
-
 function openDoc(key) {
   var doc = DOCS.find(function(d) { return d.key === key; });
   var url = doc ? doc.url : null;
@@ -543,7 +534,6 @@ function openDoc(key) {
     showToast('Document URL not configured yet', true);
   }
 }
-
 // ── RENDER EMERGENCY PAGE ──
 function renderEmergencyPage() {
   var callBtn = document.getElementById('emergCallBtn');
@@ -558,7 +548,6 @@ function renderEmergencyPage() {
     btn.style.display = (cfg.visible === false) ? 'none' : 'flex';
   }
 }
-
 function openEmergDoc(idx) {
   var cfg = EMERG_CONFIG.buttons[idx];
   if (cfg && cfg.url && cfg.url !== '#') {
@@ -567,10 +556,8 @@ function openEmergDoc(idx) {
     showToast('URL not configured yet', true);
   }
 }
-
 // ── EMERGENCY ADMIN ──
 var emergAdminTapCount = 0, emergAdminTapTimer = null, emergPinEntry = '';
-
 function emergAdminTap() {
   emergAdminTapCount++;
   clearTimeout(emergAdminTapTimer);
@@ -585,7 +572,6 @@ function emergAdminTap() {
     showScreen('emergadmin');
   }
 }
-
 function emergPinKey(k) {
   if (emergPinEntry.length >= 4) return;
   emergPinEntry += k;
@@ -604,19 +590,16 @@ function emergPinKey(k) {
     }, 200);
   }
 }
-
 function emergPinDel() {
   emergPinEntry = emergPinEntry.slice(0, -1);
   updateEmergPinDots();
   document.getElementById('emergPinError').textContent = '';
 }
-
 function updateEmergPinDots() {
   for (var i = 0; i < 4; i++) {
     document.getElementById('epd' + i).classList.toggle('filled', i < emergPinEntry.length);
   }
 }
-
 function loadEmergAdminForm() {
   document.getElementById('emergCallLabelInput').value = EMERG_CONFIG.callLabel || '⚠ EMERGENCY CALL ⚠';
   document.getElementById('emergCallPhone').value = EMERG_CONFIG.callPhone || '000';
@@ -627,7 +610,6 @@ function loadEmergAdminForm() {
     document.getElementById('emergBtnVis' + i).checked = (cfg.visible !== false);
   }
 }
-
 function saveEmergAdminConfig() {
   var btn = document.getElementById('emergAdminSaveBtn');
   btn.disabled = true;
@@ -655,11 +637,9 @@ function saveEmergAdminConfig() {
       btn.textContent = 'Save Changes';
     });
 }
-
 // ── CORE DATA ──
 var allTasks = [], summaryData = [], currentArea = 0, selectedTask = null, currentProgress = 0;
 var expandedWOs = new Set(), editMode = 'task', selectedWONumber = null;
-
 function loadData() {
   setLoad(20, 'Connecting...');
   fetch(EXEC_URL + '?action=data', { redirect: 'follow' })
@@ -687,10 +667,8 @@ function loadData() {
         '<button onclick="location.reload()" style="background:#1a6eb5;color:#fff;border:none;padding:10px 20px;border-radius:6px;font-size:14px;cursor:pointer;">Retry</button></div>';
     });
 }
-
 function setLoad(pct, msg) { document.getElementById('loadBar').style.width = pct + '%'; document.getElementById('loadStatus').textContent = msg; }
 function applyNotes(data) { document.getElementById('dashNotice').textContent = (data && data.note) ? data.note : 'No notices at this time.'; }
-
 function applySummary(data) {
   summaryData = Array.isArray(data) ? data : [];
   if (summaryData.length > 0) {
@@ -703,13 +681,11 @@ function applySummary(data) {
     renderAreaProgress();
   }
 }
-
 function fmt(val) {
   if (val === null || val === undefined || val === '') return '—';
   if (typeof val === 'number') return Number.isInteger(val) ? val : parseFloat(val.toFixed(1));
   return val;
 }
-
 function applyWOs(data) {
   allTasks = (Array.isArray(data) ? data : []).map(function(r) {
     return { row: r[0], name: r[1], woNumber: r[2], taskNumber: r[3], duration: r[4], pctComplete: r[5], start: r[6], finish: r[7], team: r[8], floc: r[9], resource: r[10], pctProgress: r[11], woHeader: r[12], subTeam: r[13], group: r[14], notes: r[15], woStatus: r[16] };
@@ -717,16 +693,13 @@ function applyWOs(data) {
   populateFilterOptions();
   renderWOList();
 }
-
 function populateFilterOptions() { fillSelect('filterTeam', 'team', allTasks, 'All Teams'); updateCascadingFilters(); }
-
 function fillSelect(id, key, tasks, label) {
   var sel = document.getElementById(id);
   var current = sel.value;
   var vals = [...new Set(tasks.map(function(t) { return t[key]; }).filter(Boolean))].sort();
   sel.innerHTML = '<option value="">' + label + '</option>' + vals.map(function(v) { return '<option value="' + v + '"' + (v === current ? ' selected' : '') + '>' + v + '</option>'; }).join('');
 }
-
 function updateCascadingFilters() {
   var team = document.getElementById('filterTeam').value;
   var subTeam = document.getElementById('filterSubTeam').value;
@@ -739,24 +712,19 @@ function updateCascadingFilters() {
   fillSelect('filterResource', 'resource', afterGroup, 'All Resources');
   fillSelect('filterStatus', 'woStatus', afterGroup, 'All Statuses');
 }
-
 function toggleFilterPanel() { document.getElementById('filterPanel').classList.toggle('open'); document.getElementById('filterToggleBtn').classList.toggle('active'); }
-
 function clearFilters() {
   ['filterTeam','filterSubTeam','filterGroup','filterResource','filterStatus'].forEach(function(id) { document.getElementById(id).value = ''; });
   document.getElementById('searchInput').value = '';
   updateCascadingFilters(); applyFilters();
 }
-
 function applyFilters() { updateCascadingFilters(); renderWOList(); updateFilterBadge(); }
-
 function updateFilterBadge() {
   var active = ['filterTeam','filterSubTeam','filterGroup','filterResource','filterStatus'].filter(function(id) { return document.getElementById(id).value; }).length;
   var keyword = document.getElementById('searchInput').value;
   var total = active + (keyword ? 1 : 0);
   document.getElementById('filterToggleBtn').textContent = total > 0 ? 'Filter (' + total + ')' : 'Filter';
 }
-
 function getFilteredTasks() {
   var keyword = (document.getElementById('searchInput').value || '').toLowerCase();
   var team = document.getElementById('filterTeam').value;
@@ -774,7 +742,6 @@ function getFilteredTasks() {
     return true;
   });
 }
-
 function renderWOList() {
   var list = document.getElementById('woList');
   var filtered = getFilteredTasks();
@@ -809,15 +776,12 @@ function renderWOList() {
   });
   list.innerHTML = html;
 }
-
 function toggleWO(woNum) { if (expandedWOs.has(woNum)) expandedWOs.delete(woNum); else expandedWOs.add(woNum); renderWOList(); }
-
 function selectTask(rowNum) {
   selectedTask = allTasks.find(function(t) { return t.row === rowNum; });
   if (!selectedTask) return;
   renderTaskDetail(); showScreen('taskdetail');
 }
-
 function renderTaskDetail() {
   var t = selectedTask;
   var pct = (t.pctProgress !== '' && t.pctProgress !== null) ? Number(t.pctProgress) : 0;
@@ -841,12 +805,10 @@ function renderTaskDetail() {
     (t.notes ? '<div class="detail-cell full"><div class="detail-cell-label">Notes</div><div class="detail-cell-value">' + t.notes + '</div></div>' : '') +
     '</div><button class="edit-task-btn" onclick="openEditScreen()">Update Progress</button>';
 }
-
 function formatDate(val) {
   if (!val) return '—';
   try { var d = new Date(val); if (isNaN(d)) return val; return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch(e) { return val; }
 }
-
 function openEditScreen() {
   editMode = 'task'; selectedWONumber = null;
   var t = selectedTask;
@@ -860,7 +822,6 @@ function openEditScreen() {
   document.getElementById('saveBtn').classList.remove('saving');
   showScreen('editprogress');
 }
-
 function openUpdateWO(woNum) {
   editMode = 'wo'; selectedWONumber = woNum;
   var tasks = allTasks.filter(function(t) { return t.woNumber === woNum; });
@@ -876,10 +837,8 @@ function openUpdateWO(woNum) {
   document.getElementById('saveBtn').classList.remove('saving');
   showScreen('editprogress');
 }
-
 function changeProgress(delta) { currentProgress = Math.max(0, Math.min(100, currentProgress + delta)); document.getElementById('progressDisplay').textContent = currentProgress; document.getElementById('progressSlider').value = currentProgress; }
 function syncSlider() { currentProgress = parseInt(document.getElementById('progressSlider').value); document.getElementById('progressDisplay').textContent = currentProgress; }
-
 function saveProgress() {
   if (editMode === 'wo') { saveWOProgress(); return; }
   var btn = document.getElementById('saveBtn');
@@ -895,7 +854,6 @@ function saveProgress() {
       btn.textContent = 'Save → Update Scheduler'; btn.disabled = false; btn.classList.remove('saving');
     });
 }
-
 function saveWOProgress() {
   var btn = document.getElementById('saveBtn');
   btn.textContent = 'Saving...'; btn.disabled = true; btn.classList.add('saving');
@@ -923,7 +881,6 @@ function saveWOProgress() {
   script.src = EXEC_URL + '?action=updateWO&woNumber=' + encodeURIComponent(selectedWONumber) + '&pctProgress=' + encodeURIComponent(currentProgress) + '&notes=' + encodeURIComponent(notes) + '&callback=' + cbName;
   document.body.appendChild(script);
 }
-
 function renderAreaProgress(a) {
   if (!a) { if (summaryData.length === 0) return; a = summaryData[currentArea]; }
   document.getElementById('areaName').textContent = a.area || '—';
@@ -937,7 +894,6 @@ function renderAreaProgress(a) {
   document.getElementById('ap-ff').textContent = formatDate(a.forecastFinish);
   document.getElementById('ap-hlc').textContent = fmt(a.hoursToCritical);
 }
-
 function changeArea(dir) {
   if (summaryData.length === 0) return;
   currentArea = (currentArea + dir + summaryData.length) % summaryData.length;
@@ -949,15 +905,12 @@ function changeArea(dir) {
     .then(function(data) { if (data && data.success) renderAreaProgress(data.area); else { showToast('Could not load area data', true); renderAreaProgress(); } })
     .catch(function() { showToast('Could not load area data', true); renderAreaProgress(); });
 }
-
 function showScreen(id) { document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); }); document.getElementById('screen-' + id).classList.add('active'); }
 function setNav(active) { document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); }); var btn = document.getElementById('nav-' + active); if (btn) btn.classList.add('active'); }
 function showToast(msg, isError) { var t = document.getElementById('toast'); t.textContent = msg; t.className = isError ? 'error' : ''; t.classList.add('show'); setTimeout(function() { t.classList.remove('show'); }, 3000); }
-
 // ── DOCUMENTS ADMIN ──
 var ADMIN_PIN = '0000';
 var pinEntry = '', adminTapCount = 0, adminTapTimer = null;
-
 function adminTap() {
   adminTapCount++;
   clearTimeout(adminTapTimer);
@@ -970,7 +923,6 @@ function adminTap() {
     showScreen('admin');
   }
 }
-
 function pinKey(k) {
   if (pinEntry.length >= 4) return;
   pinEntry += k; updatePinDots();
@@ -987,20 +939,37 @@ function pinKey(k) {
     }, 200);
   }
 }
-
 function pinDel() { pinEntry = pinEntry.slice(0, -1); updatePinDots(); document.getElementById('pinError').textContent = ''; }
 function updatePinDots() { for (var i = 0; i < 4; i++) { document.getElementById('pd' + i).classList.toggle('filled', i < pinEntry.length); } }
-
+// Style options offered when adding/editing a document button — keeps the
+// same visual language (full-width highlight / alert vs standard 2-column tile).
+var DOC_STYLE_OPTIONS = [
+  { v: 'dark',     l: 'Standard' },
+  { v: 'green',    l: 'Highlighted (full width)' },
+  { v: 'red-full', l: 'Alert (full width)' },
+  { v: 'red',      l: 'Alert (standard)' }
+];
 function renderAdminDocs() {
   var list = document.getElementById('adminDocList');
+  if (DOCS.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:16px 0;">No document buttons yet. Add one below.</div>';
+    return;
+  }
   var html = '';
   DOCS.forEach(function(doc, idx) {
     var isHidden = doc.hidden || false;
     var styleLabel = doc.style || 'dark';
+    var optsHtml = DOC_STYLE_OPTIONS.map(function(o) {
+      return '<option value="' + o.v + '"' + (o.v === styleLabel ? ' selected' : '') + '>' + o.l + '</option>';
+    }).join('');
     html += '<div class="admin-doc-row' + (isHidden ? ' hidden-row' : '') + '" id="admin-row-' + idx + '">' +
-      '<div class="admin-doc-header"><span class="admin-doc-key">' + doc.key + '</span>' +
-      '<span class="admin-doc-style ' + styleLabel + '">' + styleLabel + '</span>' +
-      '<label class="admin-toggle"><input type="checkbox"' + (!isHidden ? ' checked' : '') + ' onchange="adminToggleHidden(' + idx + ', this.checked)"><span class="admin-toggle-slider"></span></label></div>' +
+      '<div class="admin-doc-header">' +
+      '<span class="admin-doc-key">' + doc.key + '</span>' +
+      '<div class="admin-doc-actions">' +
+      '<select class="admin-style-select" id="admin-style-' + idx + '">' + optsHtml + '</select>' +
+      '<label class="admin-toggle"><input type="checkbox"' + (!isHidden ? ' checked' : '') + ' onchange="adminToggleHidden(' + idx + ', this.checked)"><span class="admin-toggle-slider"></span></label>' +
+      '<button type="button" class="admin-doc-delete" onclick="adminDeleteDoc(' + idx + ')">Delete</button>' +
+      '</div></div>' +
       '<div class="admin-input-label">Button Label</div>' +
       '<input class="admin-input" id="admin-label-' + idx + '" value="' + (doc.label || '') + '" placeholder="Button label" />' +
       '<div class="admin-input-label" style="margin-top:8px;">URL</div>' +
@@ -1009,21 +978,41 @@ function renderAdminDocs() {
   });
   list.innerHTML = html;
 }
-
+// Adds a new blank document button to the list — user fills in the label/URL then hits Save Changes.
+function adminAddDoc() {
+  DOCS.push({ key: 'doc_' + Date.now(), label: 'New Document', style: 'dark', url: '#', hidden: false });
+  renderAdminDocs();
+  var rows = document.querySelectorAll('#adminDocList .admin-doc-row');
+  var last = rows[rows.length - 1];
+  if (last) {
+    last.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var labelInput = document.getElementById('admin-label-' + (DOCS.length - 1));
+    if (labelInput) { labelInput.focus(); labelInput.select(); }
+  }
+}
+// Removes a document button entirely (not just hides it). Takes effect once Save Changes is pressed.
+function adminDeleteDoc(idx) {
+  var doc = DOCS[idx];
+  if (!doc) return;
+  if (!confirm('Remove "' + (doc.label || doc.key) + '"? This takes effect when you press Save Changes.')) return;
+  DOCS.splice(idx, 1);
+  renderAdminDocs();
+}
 function adminToggleHidden(idx, isVisible) {
   var row = document.getElementById('admin-row-' + idx);
   if (isVisible) row.classList.remove('hidden-row'); else row.classList.add('hidden-row');
 }
-
 function saveAdminConfig() {
   var btn = document.getElementById('adminSaveBtn');
   btn.disabled = true; btn.textContent = 'Saving...';
   DOCS.forEach(function(doc, idx) {
     var labelEl = document.getElementById('admin-label-' + idx);
     var urlEl = document.getElementById('admin-url-' + idx);
+    var styleEl = document.getElementById('admin-style-' + idx);
     var toggleEl = document.querySelector('#admin-row-' + idx + ' input[type=checkbox]');
     if (labelEl) doc.label = labelEl.value;
     if (urlEl) doc.url = urlEl.value || '#';
+    if (styleEl) doc.style = styleEl.value;
     if (toggleEl) doc.hidden = !toggleEl.checked;
   });
   renderDocGrid();
@@ -1032,7 +1021,6 @@ function saveAdminConfig() {
     .then(function() { showToast('Config saved'); btn.disabled = false; btn.textContent = 'Save Changes'; showScreen('documents'); setNav('documents'); })
     .catch(function() { showToast('Saved locally — server update failed', true); btn.disabled = false; btn.textContent = 'Save Changes'; });
 }
-
 loadData();
 </script>
 </body>
